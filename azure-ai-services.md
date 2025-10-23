@@ -11,7 +11,7 @@ client.analyze_sentiment(documents=[text])[0]
 client.extract_key_phrases(documents=[text])[0].key_phrases
 client.recognize_entities(documents=[text])[0].entities
 client.recognize_linked_entities(documents=[text])[0].entities
-client.recognize_pii_entities(documents=[text])
+client.recognize_pii_entities(documents=[text]) # returns redacted text
 client.begin_analyze_healthcare_entities(documents) #poller
 client.begin_analyze_actions(documents, actions=[]) #poller
 ```
@@ -69,6 +69,7 @@ client.analyze_conversation()
 
 ## Text Translation
 * Custom model use category id
+* Glossary file is associated with the source, not the target
 * REST endpoint
 	* Global - api.congnitive.microsofttranslator.com
 	* Americas - api-nam.congnitive.microsofttranslator.com
@@ -142,6 +143,7 @@ translator.recognize_once_async().get()
 	
 
 ## Document Intelligence
+* Requires Azure Storage account
 * Prebuild models:
    - Invoice
    - Receipt
@@ -152,7 +154,7 @@ translator.recognize_once_async().get()
    - Marriage certificate
    - Mortgage docs
 * More general models
-   - Read - extract text and languages
+   - Read - extract text and languages, QR codes
    - General document - extract text, keys, values, entities and selection marks
    - Layout - extract text and structure information
 * Document types: JPEG, PNG, BMP, TIFF or PDF
@@ -166,6 +168,7 @@ translator.recognize_once_async().get()
 * Custom neural model
    - deep learning; includes layout
    - Structured, semi-structured, unstructured
+   - example: hand-written surveys
 
 ```py
 from azure.ai.formrecognizer import DocumentAnalysisClient
@@ -193,6 +196,10 @@ poller = client.begin_analyze_document_from_url(
  * table projection - useful for analytics and Microsoft Power BI, Azure Table Storage
  * object projection - JSON, Azure Blob Storage
  * file projection - binary, Azure Blob Storage
+ * replace key
+ 	* add new query key
+  	* change the app to use the new key
+   	* delete the old key
 	
 ## Azure AI Vision
 * Authentication: Microsoft Entra (keyless; token-based) and API key
@@ -311,6 +318,13 @@ results = prediction_client.detect_image("<YOUR_PROJECT_ID>",
 * completion_tokens - output
 * Subscription charged for both input and output tokens
 * Add content filter to remove hate speech and more
+* Roles
+	* Cognitive Services OpenAI Contributor - upload datasets, fine-tune models
+ 	* Cognitive Services OpenAI User - use the model
+* Grounding
+ * resources - Azure Blog Storage, Azure AI Search
+ * add one-shot/few-shot examples to system/user prompt
+
 
 ```
 openai.ChatCompletion.create
@@ -378,4 +392,14 @@ if __name__ == "__main__":
 
 ## Docker / Container
 * Docker Image comes from Microsoft Container Registry
-* 
+* Deploy container image to host computer
+	* Export package file
+  	* Move package to Docker input directory
+  	* Run the container
+* Docker run
+	* URL starts with mcr and is specific service
+ 	* Billing paramter is AI Services endpoint
+  	* x is key
+
+## Azure DevOps / Azure CLI
+* Identify Azure AI Services account - `az congnitiveservices account show`
