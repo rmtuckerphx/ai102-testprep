@@ -62,8 +62,12 @@ from azure.ai.language.conversations import ConversationAnalysisClient
 client.analyze_conversation()
 ```
 
-## Text Translate
+## Text Translation
 * Custom model use category id
+* REST endpoint
+	* Global - api.congnitive.microsofttranslator.com
+	* Americas - api-nam.congnitive.microsofttranslator.com
+	* /translate?from=en&to=es&to=de
 
 ```py
 from azure.ai.translation.text import TextTranslationClient
@@ -100,6 +104,14 @@ speak = speech_synthesizer.speak_ssml_async(responseSsml).get()
 
 ```py
 import azure.cognitiveservices.speech as speech_sdk
+
+translation_config = speech_sdk.translation.SpeechTranslationConfig(subscription=subscription_key, region=service_region)
+
+translation_config.speech_recognition_language = "en-GB"
+translation_config.add_target_language("de")
+translation_config.add_target_language("fr")
+
+audio_config_in =  speech_sdk.audio.AudioConfig(use_default_microphone=True)
 
 translator = speech_sdk.translation.TranslationRecognizer(translation_config, audio_config = audio_config_in)
 translator.recognize_once_async().get()
@@ -158,14 +170,25 @@ poller = client.begin_analyze_document_from_url(
 ```
 
 ## Azure AI Search
-* Enrichment pipeline builds a document that includes content from the original source and added/enriched content in skillsets of skills to add functionality to pipeline
+* Indexer used to build a search index
+* Knowledge store built at same time
+* Enrichment pipeline builds a document that includes content from the original source
+* Skills used in pipeline to process content
+* Skills grouped into Skillsets
 * Indexer uses final document with implicit and explicit mapping to index the documents
 * Built-in skills - detect language, extract entities, extract key phrases, translate text, remove PII, extract text from images, etc.
 * Custom skills - API call or Azure Function
 * Fields in an index can be set as: key, searchable, filterable, sortable, facetable, retrievable
 * Knowledge score in a skillset consists of projections of the enriched data, JSON, tables or image files
+* Sample pipeline
+	* Source - Azure Blob Storage
+ 	* Cracking - Vision API (OCR)
+ 	* Preparation - Translator API
+	* Destination - Azure Blob Storage
+ * table projection - useful for analytics and Microsoft Power BI, Azure Table Storage
+ * object projection - JSON, Azure Blob Storage
+ * file projection - binary, Azure Blob Storage
 	
-
 ## Azure AI Vision
 * Authentication: Microsoft Entra (keyless; token-based) and API key
 * JPEG, PNG, GIF, or BMP format
@@ -244,4 +267,43 @@ results = prediction_client.detect_image("<YOUR_PROJECT_ID>",
 * Extract insights from video: face identification, text recognition, object labels, scene segmentation, etc.
 * Create custom models: people, language, brand
 * Website
+* Use a download link to share a large file from OneDrive
 
+## Azure AI Anomaly Detector
+* Detects anomalies in time series data
+* Uses ML to identify unexpected patterns
+* Great for IoT sensor data
+* Univariate - changes in one variable
+* Multivariate - changes in multiple variables with correlations
+
+## Extracting Text
+* audio - Azure AI Speech
+* PDF, TIFF, JPG, BMP - Azure AI Document Intelligence
+* PNG, JPG, GIF, BMP - Azure AI Vision (OCR)
+* video - Azure AI Vision
+
+## Azure OpenAI
+* Needs endpoint, key and deployment name
+* Each model deployment has a unique deployment name
+* Access multiple deployments from the same base endpoint
+* Temperature - how likely model will pick top choice
+	* 0.0 = more deterministic
+ 	* 1.1 = more random, creative
+* Top-p - affects scope of choice for next word
+	* 1.0 = all words considered
+ 	* 0.5 = Only most probable words that together make up 50% of the probability mass are considered
+* Max response tokens - upper bound for output tokens
+* prompt_tokens - input
+* completion_tokens - output
+* Subscription charged for both input and output tokens
+* Add content filter to remove hate speech and more
+
+```
+openai.ChatCompletion.create
+response.choice[0].text
+```
+
+## Private endpoint
+* Add private endpoint to resource (ex: Azure Storage, Azure AI Language, etc.)
+* Update virtual network rules on resource to turn off internet traffic
+* In VNet, add service endpoint
