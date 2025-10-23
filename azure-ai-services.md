@@ -375,3 +375,7 @@ def execute_chat():
 if __name__ == "__main__":
     execute_chat()
 ```
+
+## Docker / Container
+* Docker Image comes from Microsoft Container Registry
+* 
