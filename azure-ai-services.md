@@ -55,7 +55,12 @@ client.get_answers(question=user_question,project_name=ai_project_name,deploymen
 ```
 
 ## Conversation Language Understanding (CLU)
-* Entities can be learned (trained), list (closed), prebuilt or regex
+* Entities can be:
+	*  learned (trained)
+ 	*  list (closed)
+  	*  prebuilt - builtin recognizers
+  	*  regex
+  	*  Pattern.any - from LUIS; used for long entities (ex: book titles, airport names)
 
 ```py
 from azure.ai.language.conversations import ConversationAnalysisClient
@@ -275,6 +280,15 @@ results = prediction_client.detect_image("<YOUR_PROJECT_ID>",
 * Great for IoT sensor data
 * Univariate - changes in one variable
 * Multivariate - changes in multiple variables with correlations
+
+## Content Safety
+* API that can be integrated into any application or service
+* Moderate Text Content - run tests on text
+* Moderate Image Content - run tests on images
+* Monitor Online Activity - real-time monitoring
+* Prompt Shields - protects against prompt injection and jailbreak attacks
+* Protected Material Detection - identifies copyrighted content in text and code
+* Groundedness Detection - identifies hallucinated or ungrounded AI outputs
 
 ## Extracting Text
 * audio - Azure AI Speech
