@@ -217,6 +217,25 @@ result = poller.result()
 # table.cells
 ```
 
+ARM Template:
+```json
+{
+	"resources": [
+		{
+			"type": "Microsoft.CongnitiveServices/accounts",
+			"apiVersion": "2023-05-01",
+			"name": "DocumentIntelligenceDemo",
+			"location": "eastus",
+			"sku": {
+				"name": "F0"
+			},
+			"kind": "FormRecongnizer"
+		}
+	]
+}
+```
+
+
 ## Azure AI Search
 * Indexer used to build a search index
 * Knowledge store built at same time
