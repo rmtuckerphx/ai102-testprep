@@ -1,5 +1,8 @@
 # AI-102 Test Prep
 
+## Azure AI Service
+* Allows you to access multiple cognitive services through a single endpoint and credential
+
 ## Azure AI Language
 * Can submit 1 or more documents (1000 max) under 5120 chars
 
@@ -136,6 +139,8 @@ translator.recognize_once_async().get()
 
 ## Azure AI Content Understanding
 * Documents and forms, images, videos and audio recordings
+* Better for unstructured data
+* Provides broader multimodal analysis and advanced reasoning
 * Gen-AI service
 * Create analyzer trained on content schema you define
 * Schema - content sample or analyzer template
@@ -143,21 +148,29 @@ translator.recognize_once_async().get()
 * Templates: invoice analysis, image analysis, speech transcript analysis, Video analysis
 	
 
-## Document Intelligence
+## Azure AI Document Intelligence
+* Previously called FormRecognizer
+* Extracts fields, text and data from documents and forms
+* Best for structured document extraction
 * Requires Azure Storage account
-* Prebuild models:
-   - Invoice
-   - Receipt
-   - US Tax (W-2, 1098, 1099, 1040)
-   - ID document (driver's license, passport)
-   - Business card
-   - Health insurance card
-   - Marriage certificate
-   - Mortgage docs
 * More general models
-   - Read - extract text and languages, QR codes
-   - General document - extract text, keys, values, entities and selection marks
-   - Layout - extract text and structure information
+   - Read (prebuilt-read) - extract text and languages, QR codes
+   - Document (prebuilt-document) - extract text, keys, values, entities and selection marks
+   - Layout (prebuilt-layout) - extract text and structure information
+* Prebuilt models:
+   - Invoice (prebuilt-invoice)
+   - Bank Statement (prebuilt-bankStatement.us)
+   - Check (prebuilt-check.us)
+   - Contract (prebuilt-contract)
+   - Credit Card (prebuilt-creditCard)
+   - Receipt (prebuilt-receipt)
+   - US Tax (prebuilt-tax.us.1040, .1095A, .1098, .1099A, .w2)
+   - ID document (prebuilt-idDocument) - driver's license, passport
+   - Business card (prebuilt-businessCard)
+   - Health insurance card (prebuilt-healthInsuranceCard.us)
+   - Marriage certificate (prebuilt-marriageCertificate.us)
+   - Mortgage docs (prebuilt-mortgage.us.1003, prebuilt-mortgage.us.closingDisclosure)
+   - Pay stub (prebuilt-payStub.us)
 * Document types: JPEG, PNG, BMP, TIFF or PDF
 * Read model support Microsoft Office files
 * 500MB max file size
@@ -172,10 +185,36 @@ translator.recognize_once_async().get()
    - example: hand-written surveys
 
 ```py
+# OLD
 from azure.ai.formrecognizer import DocumentAnalysisClient
-poller = client.begin_analyze_document_from_url(
-     fileModelId, fileUri, locale=fileLocale
+document_analysis_client = DocumentAnalysisClient(
+	endpoint=endpoint, credential=AzureKeyCredential(key)
 )
+poller = client.begin_analyze_document_from_url(
+     "prebuilt-layout", fileUrl, locale=fileLocale
+)
+```
+
+```py
+# NEW
+from azure.ai.documentintelligence import DocumentIntelligenceClient
+from azure.ai.documentintelligence.models import AnalyzeDocumentRequest
+
+document_intelligence_client = DocumentIntelligenceClient(
+	endpoint=endpoint, credential=AzureKeyCredential(key)
+)
+
+poller = document_intelligence_client.begin_analyze_document(
+	"prebuilt-layout", AnalyzeDocumentRequest(url_source=formUrl)
+)
+result = poller.result()
+
+# result.pages
+# page.lines
+# page.selection_marks
+# page.words
+# result.tables
+# table.cells
 ```
 
 ## Azure AI Search
@@ -205,9 +244,17 @@ poller = client.begin_analyze_document_from_url(
 ## Azure AI Vision
 * Authentication: Microsoft Entra (keyless; token-based) and API key
 * JPEG, PNG, GIF, or BMP format
+* For PDF, Office and HTML documents, use Document Intelligence
 * Less than 4MB
 * Greater than 50x50px
-* VisualFeatures: TAGS, OBJECTS, CAPTION, DENSE_CAPTIONS, PEOPLE, SMART_CROPS, READ
+* VisualFeatures:
+ * CAPTION - sentence that describes the image contents
+ * READ (OCR) - extract printed or hand-written text
+ * DENSE_CAPTIONS - one sentence for up to 10 regions in image
+ * TAGS - tags for objects, living beings, scenery and actions
+ * OBJECTS - object detection
+ * SMART_CROPS - find region for thumbnail w/ priority for faces
+ * PEOPLE - detect people
 	
 ```py
 from azure.ai.vision.imageanalysis import ImageAnalysisClient
@@ -219,6 +266,12 @@ result = client.analyze(
     image_data=<IMAGE_DATA_BYTES>, # Binary data from your image file
     visual_features=[VisualFeatures.CAPTION, VisualFeatures.TAGS],
     gender_neutral_caption=True,
+)
+
+result = client.analyze_from_url(
+    image_url="https://aka.ms/azsdk/image-analysis/sample.jpg",
+    visual_features=[VisualFeatures.CAPTION],
+    gender_neutral_caption=True,  # Optional (default is False)
 )
 ```
 
