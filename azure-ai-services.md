@@ -398,6 +398,17 @@ results = prediction_client.detect_image("<YOUR_PROJECT_ID>",
 * Univariate - changes in one variable
 * Multivariate - changes in multiple variables with correlations
 
+## Azure AI Immersive Reader
+* improve reading comprehension
+* new readers, language learners, dyslexia, etc.
+* features
+	* isolate content
+ 	* display pictures for common words
+  	* highlight parts of speech
+  	* read content aloud
+  	* translate content in real-time
+  	* split words into syllables
+   
 ## Content Safety
 * API that can be integrated into any application or service
 * Moderate Text Content - run tests on text
