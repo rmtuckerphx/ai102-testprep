@@ -94,6 +94,7 @@ output= speech.text
 
 ## Text-to-Speech (TTS)
 * Needs location (eastus) and key
+* FromWavFileOutput - location of output audio file
 
 ```py
 import azure.cognitiveservices.speech as speech_sdk
@@ -255,6 +256,23 @@ result = face_client.detect(
 
 ## AI Custom Vision - Image Classification
 * Needs 2 resources: Custom Vision training and Custom Vision prediction
+* Tag images
+* Compact models for edge/mobile deployment
+* Domains
+ * General
+ * General [A1] - large dataset, more training and inference time
+ * General [A2] - shorter training time, better inference speed
+ * Food
+ * Landmarks
+ * Retail
+ * Adult
+ * General (compact) - special postprocessing logic
+ * General (compact) [S1] - no postprocessing logic
+ * Landmarks (compact)
+ * Retail (compact)
+* Classification Types
+ * Multi-label (multiple tags per images)
+ * Multi-class (single tag per image) 
 
 ```py	
 from azure.cognitiveservices.vision.customvision.prediction import CustomVisionPredictionClient
@@ -266,7 +284,15 @@ results = prediction_client.classify_image("<YOUR_PROJECT_ID>",
 
 ## AI Custom Vision - Object Detection
 * Needs 2 resources: Custom Vision training and Custom Vision prediction
-	
+* Compact models for edge/mobile deployment
+* Domains
+ * General
+ * General [A1] - better accuracy
+ * Logo
+ * Products on Shelves
+ * General (compact) - special postprocessing logic
+ * General (compact) [S1] - no postprocessing logic
+ 	
 ```py
 from azure.cognitiveservices.vision.customvision.prediction import CustomVisionPredictionClient
 prediction_client = CustomVisionPredictionClient(endpoint="<YOUR_PREDICTION_RESOURCE_ENDPOINT>", credentials=credentials)
@@ -319,7 +345,7 @@ results = prediction_client.detect_image("<YOUR_PROJECT_ID>",
 * Subscription charged for both input and output tokens
 * Add content filter to remove hate speech and more
 * Roles
-	* Cognitive Services OpenAI Contributor - upload datasets, fine-tune models
+	* Cognitive Services OpenAI Contributor - upload datasets, fine-tune models, create/update model deployments
  	* Cognitive Services OpenAI User - use the model
 * Grounding
  * resources - Azure Blog Storage, Azure AI Search
