@@ -431,11 +431,10 @@ results = prediction_client.detect_image("<YOUR_PROJECT_ID>",
 * Roles
 	* Cognitive Services OpenAI Contributor - upload datasets, fine-tune models, create/update model deployments
  	* Cognitive Services OpenAI User - use the model
-* Grounding
-	* resources - Azure Blog Storage, Azure AI Search
-	* add one-shot/few-shot examples to system/user prompt
-
-
+* Grounding (list in order of least to most effort)
+	* one-shot/few-shot examples to system/user prompt
+ 	* grounding content - Azure Blog Storage, Azure AI Search (RAG)
+	* tools
 ```
 from openai import OpenAI
 
