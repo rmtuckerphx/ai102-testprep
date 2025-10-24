@@ -434,6 +434,7 @@ results = prediction_client.detect_image("<YOUR_PROJECT_ID>",
 * Use a download link to share a large file from OneDrive
 * Files must be under 2GB and less than 6 hours (360 minutes) for direct upload;
 * Files must be under 30GB to upload via URL and Microsoft OneDrive
+* enabled = false - puts brand in exclude list
 
 ## Azure AI Anomaly Detector
 * Detects anomalies in time series data
@@ -496,6 +497,7 @@ POST '<endpoint>/contentsafety/text:analyze'
 * prompt_tokens - input
 * completion_tokens - output
 * capacity - amount of quota you are assigning to a deployment. A value of 1 equals 1000 Tokens per Minute (TPM)
+* frequency penalty - discourages model from repeating the same words
 * Subscription charged for both input and output tokens
 * Add content filter to remove hate speech and more
 * Roles
@@ -623,3 +625,6 @@ if __name__ == "__main__":
 * prompt dialog - ask users for information; use TextPrompt to repeatedly ask user until they provide valid input
 * waterfall dialog - sequence of steps
 * QnA Maker dialog - accesses QnA Maker knowledge base
+
+## Semantic Kernel
+* prompt templates - Liquid or Handlebars
