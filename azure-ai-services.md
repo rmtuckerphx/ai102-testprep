@@ -259,9 +259,25 @@ ARM Template:
 * Skills used in pipeline to process content
 * Skills grouped into Skillsets
 * Indexer uses final document with implicit and explicit mapping to index the documents
-* Built-in skills - detect language, extract entities, extract key phrases, translate text, remove PII, extract text from images, etc.
+* Built-in skills
+	* detect language
+ 	* extract entities
+  	* extract key phrases
+  	* translate text
+  	* remove PII
+  	* extract text from images
 * Custom skills - API call or Azure Function
-* Fields in an index can be set as: key, searchable, filterable, sortable, facetable, retrievable
+* Fields in an index can be set as:
+	* key
+ 	* searchable
+  	* filterable
+  	* sortable
+  	* facetable
+  	* retrievable
+* Typeahead includes autocomplete box and suggestion list
+	* add suggester (with fields) to search index definition
+ 	* set analyzer property
+ 	* call API endpoint for suggester or autocomplete
 * Knowledge score in a skillset consists of projections of the enriched data, JSON, tables or image files
 * Sample pipeline
 	* Source - Azure Blob Storage
