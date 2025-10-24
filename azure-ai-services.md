@@ -233,10 +233,11 @@ result = poller.result()
  	* Cracking - Vision API (OCR)
  	* Preparation - Translator API
 	* Destination - Azure Blob Storage
- * table projection - useful for analytics and Microsoft Power BI, Azure Table Storage
- * object projection - JSON, Azure Blob Storage
- * file projection - binary, Azure Blob Storage
- * replace key
+* Projections
+	* table projection - useful for analytics and Microsoft Power BI, Azure Table Storage
+	* object projection - JSON, Azure Blob Storage
+	* file projection - binary, Azure Blob Storage
+* replace key
  	* add new query key
   	* change the app to use the new key
    	* delete the old key
@@ -248,13 +249,13 @@ result = poller.result()
 * Less than 4MB
 * Greater than 50x50px
 * VisualFeatures:
- * CAPTION - sentence that describes the image contents
- * READ (OCR) - extract printed or hand-written text
- * DENSE_CAPTIONS - one sentence for up to 10 regions in image
- * TAGS - tags for objects, living beings, scenery and actions
- * OBJECTS - object detection
- * SMART_CROPS - find region for thumbnail w/ priority for faces
- * PEOPLE - detect people
+	* CAPTION - sentence that describes the image contents
+	* READ (OCR) - extract printed or hand-written text
+	* DENSE_CAPTIONS - one sentence for up to 10 regions in image
+	* TAGS - tags for objects, living beings, scenery and actions
+	* OBJECTS - object detection
+	* SMART_CROPS - find region for thumbnail w/ priority for faces
+	* PEOPLE - detect people
 	
 ```py
 from azure.ai.vision.imageanalysis import ImageAnalysisClient
@@ -283,14 +284,14 @@ result = client.analyze_from_url(
 * Facial recognition - train model on collection of faces and identify those people in new images
 * Facial liveness - video fake or live
 * Face detection model:
-  * DETECTION01 (default)
-  * DETECTION02 (improved for small, blurry, side)
-  * DETECTION03 (most accurate for small or rotated; advanced)
+	* DETECTION01 (default)
+	* DETECTION02 (improved for small, blurry, side)
+	* DETECTION03 (most accurate for small or rotated; advanced)
 * Face recognition model:
-  * RECOGNITION01 (legacy)
-  * RECOGNITION02 (improved)
-  * RECOGNITION03 (high accuracy)
-  * RECOGNITION04 (most accurate; production)
+	* RECOGNITION01 (legacy)
+	* RECOGNITION02 (improved)
+	* RECOGNITION03 (high accuracy)
+	* RECOGNITION04 (most accurate; production)
 * Face attribute features: HEAD_POSE, OCCLUSION, ACCESSORIES, etc.
 
 ```py
@@ -312,20 +313,20 @@ result = face_client.detect(
 * Tag images
 * Compact models for edge/mobile deployment
 * Domains
- * General
- * General [A1] - large dataset, more training and inference time
- * General [A2] - shorter training time, better inference speed
- * Food
- * Landmarks
- * Retail
- * Adult
- * General (compact) - special postprocessing logic
- * General (compact) [S1] - no postprocessing logic
- * Landmarks (compact)
- * Retail (compact)
+	* General
+	* General [A1] - large dataset, more training and inference time
+	* General [A2] - shorter training time, better inference speed
+	* Food
+	* Landmarks
+	* Retail
+	* Adult
+	* General (compact) - special postprocessing logic
+	* General (compact) [S1] - no postprocessing logic
+	* Landmarks (compact)
+	* Retail (compact)
 * Classification Types
- * Multi-label (multiple tags per images)
- * Multi-class (single tag per image) 
+	* Multi-label (multiple tags per images)
+	* Multi-class (single tag per image) 
 
 ```py	
 from azure.cognitiveservices.vision.customvision.prediction import CustomVisionPredictionClient
@@ -339,12 +340,12 @@ results = prediction_client.classify_image("<YOUR_PROJECT_ID>",
 * Needs 2 resources: Custom Vision training and Custom Vision prediction
 * Compact models for edge/mobile deployment
 * Domains
- * General
- * General [A1] - better accuracy
- * Logo
- * Products on Shelves
- * General (compact) - special postprocessing logic
- * General (compact) [S1] - no postprocessing logic
+	* General
+	* General [A1] - better accuracy
+	* Logo
+	* Products on Shelves
+	* General (compact) - special postprocessing logic
+	* General (compact) [S1] - no postprocessing logic
  	
 ```py
 from azure.cognitiveservices.vision.customvision.prediction import CustomVisionPredictionClient
@@ -401,8 +402,8 @@ results = prediction_client.detect_image("<YOUR_PROJECT_ID>",
 	* Cognitive Services OpenAI Contributor - upload datasets, fine-tune models, create/update model deployments
  	* Cognitive Services OpenAI User - use the model
 * Grounding
- * resources - Azure Blog Storage, Azure AI Search
- * add one-shot/few-shot examples to system/user prompt
+	* resources - Azure Blog Storage, Azure AI Search
+	* add one-shot/few-shot examples to system/user prompt
 
 
 ```
