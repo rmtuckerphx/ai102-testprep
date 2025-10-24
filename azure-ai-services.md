@@ -523,9 +523,9 @@ if __name__ == "__main__":
   	* Move package to Docker input directory
   	* Run the container
 * Docker run
-	* URL starts with mcr and is specific service
- 	* Billing paramter is AI Services endpoint
-  	* x is key
+	* Container image name starts with "mcr". ex: `mcr.microsoft.com/azure-cognitive-services/textanalytics/sentiment`
+ 	* **Billing** - AI Services endpoint URI
+  	* **ApiKey** - key
 
 ## Azure DevOps / Azure CLI
 * Identify Azure AI Services account - `az congnitiveservices account show`
