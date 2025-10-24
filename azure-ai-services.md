@@ -451,6 +451,18 @@ results = prediction_client.detect_image("<YOUR_PROJECT_ID>",
 * Protected Material Detection - identifies copyrighted content in text and code
 * Groundedness Detection - identifies hallucinated or ungrounded AI outputs
 
+```
+POST '<endpoint>/contentsafety/text:analyze'
+
+{
+	"text": "hate hate hate",
+	"categories": ["Hate", "Sexual", "SelfHarm", "Violence"],
+	"blockListNames": ["word1", "word2"],
+	"haltOnBlockListHit": true,
+	"outputType": "FourSeverityLevels"
+}
+```
+
 ## Extracting Text
 * audio - Azure AI Speech
 * PDF, TIFF, JPG, BMP - Azure AI Document Intelligence
