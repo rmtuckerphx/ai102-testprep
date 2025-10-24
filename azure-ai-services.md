@@ -188,6 +188,7 @@ translator.recognize_once_async().get()
 * Document types: JPEG, PNG, BMP, TIFF or PDF
 * Read model support Microsoft Office files
 * 500MB max file size
+* Image dimensions from 50x50px to 10000x10000px
 * First 2000 pages analyzed
 * Custom model needs ocr.json, fields,json and labels.json; 5-6 sample forms
 * Custom template model
@@ -279,6 +280,12 @@ ARM Template:
  	* set analyzer property
  	* call API endpoint for suggester or autocomplete
 * Knowledge score in a skillset consists of projections of the enriched data, JSON, tables or image files
+* Pipeline:
+	* Document Cracking
+ 	* Field Mappings
+  	* Skillset Execution
+  	* Output Field Mappings
+  	* Push to Index 	  
 * Sample pipeline
 	* Source - Azure Blob Storage
  	* Cracking - Vision API (OCR)
@@ -450,6 +457,7 @@ results = prediction_client.detect_image("<YOUR_PROJECT_ID>",
 * Prompt Shields - protects against prompt injection and jailbreak attacks
 * Protected Material Detection - identifies copyrighted content in text and code
 * Groundedness Detection - identifies hallucinated or ungrounded AI outputs
+* Add blocklist to remove offensive terms
 
 ```
 POST '<endpoint>/contentsafety/text:analyze'
