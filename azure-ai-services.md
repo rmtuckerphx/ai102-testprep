@@ -418,8 +418,25 @@ results = prediction_client.detect_image("<YOUR_PROJECT_ID>",
 
 
 ```
-openai.ChatCompletion.create
-response.choice[0].text
+from openai import OpenAI
+
+client = OpenAI(
+    api_key=os.getenv("AZURE_OPENAI_API_KEY"),
+    base_url="https://YOUR-RESOURCE-NAME.openai.azure.com/openai/v1/",
+)
+
+messages = [
+    {"role": "system", "content": "You are a helpful assistant that explains complex topics simply."},
+    {"role": "user", "content": "Explain machine learning to a 5-year-old."}
+]
+
+completion = client.chat.completions.create(
+	model="gpt-3.5-turbo",  # Specify the model to use (e.g., "gpt-4o", "gpt-3.5-turbo")
+	messages=messages,
+	max_tokens=100,  # Limit the length of the generated response
+	temperature=0.7  # Control the randomness of the output (0.0 for deterministic, 1.0 for very creative)
+)
+print(completion.choices[0].message.content)
 ```
 
 ## Private endpoint
