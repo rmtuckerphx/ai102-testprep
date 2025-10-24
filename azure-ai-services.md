@@ -253,6 +253,8 @@ ARM Template:
 ## Azure AI Search
 * Indexer used to build a search index
 * Knowledge store built at same time
+* Add replicas to increase query throughput or move to higher service tier
+* Customer managed key (CMK) - security and encryption at rest
 * Enrichment pipeline builds a document that includes content from the original source
 * Skills used in pipeline to process content
 * Skills grouped into Skillsets
