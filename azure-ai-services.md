@@ -307,6 +307,7 @@ ARM Template:
 	* OBJECTS - object detection
 	* SMART_CROPS - find region for thumbnail w/ priority for faces
 	* PEOPLE - detect people
+ 	* IMAGE_TYPE - clip art, line drawing, photo
 	
 ```py
 from azure.ai.vision.imageanalysis import ImageAnalysisClient
