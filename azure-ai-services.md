@@ -306,6 +306,7 @@ ARM Template:
 * For PDF, Office and HTML documents, use Document Intelligence
 * Less than 4MB
 * Greater than 50x50px
+* Spatial Analysis - detects presence and movement of people in video in real-time. Seems to be deprecated.
 * VisualFeatures:
 	* CAPTION - sentence that describes the image contents
 	* READ (OCR) - extract printed or hand-written text
@@ -429,7 +430,10 @@ results = prediction_client.detect_image("<YOUR_PROJECT_ID>",
 * Extract insights from video: face identification, text recognition, object labels, scene segmentation, etc.
 * Create custom models: people, language, brand
 * Website
+* Not real-time; used for post processing
 * Use a download link to share a large file from OneDrive
+* Files must be under 2GB and less than 6 hours (360 minutes) for direct upload;
+* Files must be under 30GB to upload via URL and Microsoft OneDrive
 
 ## Azure AI Anomaly Detector
 * Detects anomalies in time series data
@@ -458,6 +462,7 @@ results = prediction_client.detect_image("<YOUR_PROJECT_ID>",
 * Protected Material Detection - identifies copyrighted content in text and code
 * Groundedness Detection - identifies hallucinated or ungrounded AI outputs
 * Add blocklist to remove offensive terms
+* API supports `text:analyze` and `image:analyze`
 
 ```
 POST '<endpoint>/contentsafety/text:analyze'
@@ -612,3 +617,9 @@ if __name__ == "__main__":
 
 ## Azure DevOps / Azure CLI
 * Identify Azure AI Services account - `az congnitiveservices account show`
+
+## Microsoft Bot Framework
+* OLD
+* prompt dialog - ask users for information; use TextPrompt to repeatedly ask user until they provide valid input
+* waterfall dialog - sequence of steps
+* QnA Maker dialog - accesses QnA Maker knowledge base
