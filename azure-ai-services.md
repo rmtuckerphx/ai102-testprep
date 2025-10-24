@@ -490,6 +490,7 @@ POST '<endpoint>/contentsafety/text:analyze'
 * Max response tokens - upper bound for output tokens
 * prompt_tokens - input
 * completion_tokens - output
+* capacity - amount of quota you are assigning to a deployment. A value of 1 equals 1000 Tokens per Minute (TPM)
 * Subscription charged for both input and output tokens
 * Add content filter to remove hate speech and more
 * Roles
@@ -519,6 +520,24 @@ completion = client.chat.completions.create(
 	temperature=0.7  # Control the randomness of the output (0.0 for deterministic, 1.0 for very creative)
 )
 print(completion.choices[0].message.content)
+```
+
+```py
+import os
+from openai import AzureOpenAI
+
+client = AzureOpenAI(
+    api_key=os.getenv("AZURE_OPENAI_API_KEY"),
+    api_version="2023-05-15",  # Ensure this matches the API version used in your Azure deployment
+    azure_endpoint="https://YOUR-RESOURCE-NAME.openai.azure.com"
+)
+
+response = client.embeddings.create(
+    input="Your text string goes here",
+    model="YOUR-DEPLOYMENT-NAME"  # This should be the name of the deployed embedding model
+)
+
+print(response.model_dump_json(indent=2))
 ```
 
 ## Private endpoint
