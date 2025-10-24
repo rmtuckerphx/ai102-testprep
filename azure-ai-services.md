@@ -11,8 +11,8 @@ from azure.ai.textanalytics import TextAnalyticsClient
 
 client.detect_language(documents=[text])[0]
 client.analyze_sentiment(documents=[text])[0]
-client.extract_key_phrases(documents=[text])[0].key_phrases
-client.recognize_entities(documents=[text])[0].entities
+client.extract_key_phrases(documents=[text])[0].key_phrases # returns nouns, no confidence score
+client.recognize_entities(documents=[text])[0].entities # returns entities with confidence score
 client.recognize_linked_entities(documents=[text])[0].entities
 client.recognize_pii_entities(documents=[text]) # returns redacted text
 client.begin_analyze_healthcare_entities(documents) #poller
