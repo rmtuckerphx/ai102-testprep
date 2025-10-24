@@ -84,7 +84,7 @@ client.get_supported_languages(scope="translation")
 client.translate(body=input_text_elements, to_language=[targetLanguage])
 ```
 
-## Speech-to-Test (STT)
+## Speech-to-Text (STT)
 * Needs location (eastus) and key
 
 ```py
