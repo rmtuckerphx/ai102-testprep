@@ -308,8 +308,19 @@ result = face_client.detect(
     )
 ```
 
-## AI Custom Vision - Image Classification
+## AI Custom Vision - General
+* These things apply to both Image Classification and Object Detection
 * Needs 2 resources: Custom Vision training and Custom Vision prediction
+* Steps to Create
+	* Open Computer Vision portal
+ 	* Create/open a project
+ 	* Upload sample images
+  	* Tag/label the images (Object Detect, Tag/label the regions)
+  	* Train the model
+  	* Test the model
+  	* Publish the model
+
+## AI Custom Vision - Image Classification
 * Tag images
 * Compact models for edge/mobile deployment
 * Domains
@@ -337,8 +348,8 @@ results = prediction_client.classify_image("<YOUR_PROJECT_ID>",
 ```
 
 ## AI Custom Vision - Object Detection
-* Needs 2 resources: Custom Vision training and Custom Vision prediction
 * Compact models for edge/mobile deployment
+* Need at least 15 images
 * Domains
 	* General
 	* General [A1] - better accuracy
