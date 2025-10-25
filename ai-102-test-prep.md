@@ -628,3 +628,65 @@ if __name__ == "__main__":
 
 ## Semantic Kernel
 * prompt templates - Liquid or Handlebars
+
+## AgentsClient
+* tools - A list of tool definitions that specify the capabilities available to the agent. Each ToolDefinition describes a tool the agent can use during its operation.
+* tool_resources - Resources required by the agent's tools.
+* Tool Definitions
+	* FunctionToolDefinition
+ 	* AzureFunctionToolDefinition
+  	* OpenApiToolDefinition
+  	* CodeInterpreterToolDefinition
+  	* FileSearchToolDefinition
+  	* AzureAISearchToolDefinition
+  	* BingGroundingToolDefinition
+
+```py
+from azure.ai.agents import AgentsClient
+from azure.ai.agents.models import (
+    FunctionToolDefinition,
+    CodeInterpreterToolDefinition,
+    ToolResources,
+    CodeInterpreterToolResource
+)
+from azure.identity import DefaultAzureCredential
+# Initialize the client
+client = AgentsClient(
+    endpoint="https://<your-project-endpoint>.openai.azure.com",
+    credential=DefaultAzureCredential()
+)
+
+# Define a function tool
+function_tool = FunctionToolDefinition(
+    name="get_weather",
+    description="Get the current weather for a city",
+    parameters={
+        "type": "object",
+        "properties": {
+            "location": {
+                "type": "string",
+                "description": "The city to get the weather for"
+            }
+        },
+        "required": ["location"]
+    }
+)
+
+# Define a code interpreter tool
+code_tool = CodeInterpreterToolDefinition()
+
+# Define tool resources for the code interpreter (e.g., file IDs already uploaded)
+tool_resources = ToolResources(
+    code_interpreter=CodeInterpreterToolResource(
+        file_ids=["file-abc123", "file-def456"]
+    )
+)
+
+# Create the agent with both tools
+agent = client.create_agent(
+    name="WeatherAndCodeAgent",
+    instructions="You are a helpful assistant that can provide weather updates and run Python code.",
+    tools=[function_tool, code_tool],
+    tool_resources=tool_resources
+)
+```
